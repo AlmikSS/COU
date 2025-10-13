@@ -6,19 +6,25 @@ namespace COU.GamePlay
     public class TransformRotator : IRotatable
     {
         private readonly Transform _transform;
-        
+        private readonly float _rotationSpeed = 5f;
+
         public TransformRotator(Transform transform)
         {
             _transform = transform;
         }
-        
+
         public void Rotate(Vector2 direction)
         {
-            var x = direction.x;
-            var y = direction.y;
-            
-            var angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg;
-            _transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            if (direction.magnitude < 0.1f) return;
+
+            var targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            var targetRotation = Quaternion.AngleAxis(targetAngle, Vector3.forward);
+
+            _transform.rotation = Quaternion.Lerp(
+                _transform.rotation,
+                targetRotation,
+                _rotationSpeed * Time.deltaTime
+            );
         }
     }
 }
