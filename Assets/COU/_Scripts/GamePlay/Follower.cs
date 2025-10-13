@@ -16,7 +16,7 @@ namespace COU.GamePlay
             transform.position = Vector3.Lerp(
                 transform.position, 
                 targetPosition, 
-                Time.deltaTime * (1f / _smoothTime)
+                Time.deltaTime * _smoothTime
             );
         }
     }
