@@ -8,7 +8,8 @@ namespace COU.Player
     public class PlayerController : MonoBehaviour
     {
         [SerializeField] private Joystick _joystick;
-        [SerializeField] private float _moveSpeed;
+        [SerializeField] private float _acceleration;
+        [SerializeField] private float _maxSpeed;
         
         private IMoveable _mover;
         private IRotatable _rotator;
@@ -16,7 +17,7 @@ namespace COU.Player
         private void Awake()
         {
             var rb = GetComponent<Rigidbody2D>();
-            _mover = new RigidbodyNonGravityMover(rb, _moveSpeed);
+            _mover = new RigidbodyNonGravityMover(_acceleration, _maxSpeed, rb);
             _rotator = new TransformRotator(transform);
         }
 
