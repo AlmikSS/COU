@@ -5,17 +5,21 @@ namespace COU.GamePlay
 {
     public class RigidbodyNonGravityMover : IMoveable
     {
-        private readonly float _acceleration;
-        private readonly float _maxSpeed;
         private readonly Rigidbody2D _rb;
+        private float _acceleration;
+        private float _maxSpeed;
 
-        public RigidbodyNonGravityMover(float acceleration, float maxSpeed, Rigidbody2D rb)
+        public RigidbodyNonGravityMover(Rigidbody2D rb)
         {
-            _acceleration = acceleration;
-            _maxSpeed = maxSpeed;
             _rb = rb;
         }
 
+        public void Initialize(float speed, float acceleration)
+        {
+            _maxSpeed = speed;
+            _acceleration = acceleration;
+        }
+        
         public void Move(Vector2 direction)
         {
             var targetVelocity = direction.normalized * _maxSpeed;

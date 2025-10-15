@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace COU.GamePlay
 {
-    public class TransformRotator : IRotatable
+    public class TransformDirectionRotator : IRotatable
     {
         private readonly Transform _transform;
         private readonly float _rotationSpeed = 5f;
 
-        public TransformRotator(Transform transform)
+        public TransformDirectionRotator(Transform transform)
         {
             _transform = transform;
         }
