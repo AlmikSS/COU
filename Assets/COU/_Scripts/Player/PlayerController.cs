@@ -6,7 +6,6 @@ namespace COU.Player
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField] private float _acceleration;
         [SerializeField] private float _maxSpeed;
         
         private IMoveable _mover;
@@ -19,7 +18,7 @@ namespace COU.Player
             _rotator = rotator;
             _joystick = joystick;
             
-            _mover.Initialize(_maxSpeed, _acceleration);
+            _mover.SetSpeed(_maxSpeed);
         }
 
         private void Update()
