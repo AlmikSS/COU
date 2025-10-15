@@ -6,13 +6,18 @@ namespace COU.GamePlay
     public class TransformDirectionRotator : IRotatable
     {
         private readonly Transform _transform;
-        private readonly float _rotationSpeed = 5f;
+        private float _rotationSpeed = 5f;
 
         public TransformDirectionRotator(Transform transform)
         {
             _transform = transform;
         }
 
+        public void SetSpeed(float speed)
+        {
+            _rotationSpeed = speed;
+        }
+        
         public void Rotate(Vector2 direction)
         {
             if (direction.magnitude < 0.1f) return;

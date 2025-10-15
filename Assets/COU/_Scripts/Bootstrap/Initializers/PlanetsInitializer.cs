@@ -1,6 +1,8 @@
-﻿namespace COU.Bootstrap
+﻿using UnityEngine;
+
+namespace COU.Bootstrap
 {
-    public class PlanetsInitializer
+    public class PlanetsInitializer : MonoBehaviour
     {
         
     }
