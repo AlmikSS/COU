@@ -33,7 +33,8 @@ namespace COU.Player
                 _moveDirection = _joystick.Direction.normalized;
             
             #if UNITY_EDITOR
-            _moveDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            if (_moveDirection.magnitude < 0.1f)
+                _moveDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             #endif
             
             _rotator.Rotate(_moveDirection);
