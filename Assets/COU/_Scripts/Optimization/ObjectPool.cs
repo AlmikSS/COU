@@ -26,7 +26,7 @@ namespace COU.Optimization
             return obj;
         }
 
-        public GameObject Spawn(Vector3 position, Quaternion rotation, Transform parent)
+        public GameObject Spawn(Vector3 position, Quaternion rotation, Transform parent = null)
         {
             if (_objectPool.Count < 0)
                 return AddObject();

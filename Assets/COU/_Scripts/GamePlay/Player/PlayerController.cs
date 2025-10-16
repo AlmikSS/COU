@@ -12,17 +12,20 @@ namespace COU.Player
         private IRotatable _rotator;
         private Joystick _joystick;
         private PlayerScanner _playerScanner;
+        private PlayerCombat _playerCombat;
         private Vector2 _moveDirection;
 
         public void Initialize(IMoveable mover,
             IRotatable rotator,
             Joystick joystick,
-            PlayerScanner playerScanner)
+            PlayerScanner playerScanner,
+            PlayerCombat playerCombat)
         {
             _mover = mover;
             _rotator = rotator;
             _joystick = joystick;
             _playerScanner = playerScanner;
+            _playerCombat = playerCombat;
             
             _mover.SetSpeed(_maxSpeed);
         }
@@ -41,6 +44,9 @@ namespace COU.Player
             
             if (Input.GetKeyDown(KeyCode.Space))
                 _playerScanner.Scan();
+            
+            if (Input.GetKeyDown(KeyCode.R))
+                _playerCombat.Shoot();
         }
         
         private void FixedUpdate()
