@@ -4,7 +4,7 @@ namespace COU.Interfaces
 {
     public interface IMoveable
     {
-        void Initialize(float speed, float acceleration);
+        void SetSpeed(float speed);
         void Move(Vector2 direction);
     }
 }
