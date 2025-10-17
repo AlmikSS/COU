@@ -8,6 +8,8 @@ namespace COU.Bootstrap
     {
         [SerializeField] private PlayerController _playerController;
         [SerializeField] private PlayerScanner _playerScanner;
+        [SerializeField] private PlayerHealth _playerHealth;
+        [SerializeField] private PlayerStatsUI _playerStatsUI;
         [SerializeField] private ScannerUI _scannerUI;
         [SerializeField] private PlayerCombat _playerCombat;
         [SerializeField] private Joystick _joystick;
@@ -19,8 +21,10 @@ namespace COU.Bootstrap
             var mover = new RigidbodyNonGravityMover(rb);
             var rotator = new TransformDirectionRotator(transform);
             
-            _playerController.Initialize(mover, rotator,
-                _joystick, _playerScanner, _playerCombat);
+            _playerHealth.Initialize();
+            _playerStatsUI.Initialize(_playerHealth);
+            _playerController.Initialize(mover, rotator, _joystick, _playerScanner, _playerCombat);
+            
             _playerScanner.OnScanEvent += _scannerUI.ShowInfo;
         }
     }
