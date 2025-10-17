@@ -8,10 +8,12 @@ namespace COU.GamePlay
         [SerializeField] private Vector2 _offset;
         [SerializeField] private Projectile _projectilePrefab;
         
-        public override void Attack(Vector2 origin, Vector2 direction)
+        public override void Attack(Transform origin, Vector2 direction)
         {
-            var projectile = Instantiate(_projectilePrefab, origin + _offset, _projectilePrefab.transform.rotation);
-            projectile.Launch(direction);
+            var pos = origin.position + origin.TransformDirection(_offset);
+            var projectile = Instantiate(_projectilePrefab, pos, _projectilePrefab.transform.rotation);
+            projectile.SetDamage(Damage);
+            projectile.Launch(direction, origin.gameObject);
         }
     }
 }

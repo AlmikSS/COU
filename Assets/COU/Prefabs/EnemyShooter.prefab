@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 2335598669584045685}
   - component: {fileID: 4145759758092717847}
   - component: {fileID: 326882554205348393}
+  - component: {fileID: -2122540522040235959}
   m_Layer: 8
   m_Name: EnemyShooter
   m_TagString: Untagged
@@ -197,6 +198,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32f8534e52de4408aa7dfe1d394150b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _updateInterval: 0.01
-  _speed: 1000
+  _speed: 30
   _attackStrategy: {fileID: 11400000, guid: 6cb76fc80c5fa4b4284ff574d083e777, type: 2}
+  _attackCoolDown: 2
+--- !u!114 &-2122540522040235959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6718529675360128360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a56e936282a441abc709c678d09a834, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

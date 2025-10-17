@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ea11e9ef69e4992bedfa8aa9215aa69, type: 3}
   m_Name: ShootEnemyAttackStrategy
   m_EditorClassIdentifier: 
-  _attackDistance: 10
+  _attackDistance: 50
   _fleeDistance: 4
   _damage: 1
-  _offset: {x: 1, y: 0}
+  _offset: {x: 5, y: 0}
   _projectilePrefab: {fileID: 1410929041197483634, guid: bb3006760dedd98458b7807c2fc1b8f7, type: 3}

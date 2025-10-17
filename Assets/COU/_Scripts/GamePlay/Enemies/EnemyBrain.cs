@@ -8,12 +8,14 @@ namespace COU.GamePlay
     {
         [SerializeField] private float _speed;
         [SerializeField] private EnemyAttackStrategy _attackStrategy;
+        [SerializeField] private float _attackCoolDown;
         
         private IPathfinder _pathfinder;
         private Transform _playerTransform;
         private IMover _mover;
         private IRotator _rotator;
         private EnemyState _state;
+        private bool _canAttack = true;
 
         public void Initialize(IPathfinder pathfinder,
             Transform playerTransform, IMover mover, IRotator rotator)
@@ -22,7 +24,8 @@ namespace COU.GamePlay
             _playerTransform = playerTransform;
             _mover = mover;
             _rotator = rotator;
-            
+
+            _state = EnemyState.Approaching;
             _mover.SetSpeed(_speed);
             StartCoroutine(StateMachineRoutine());
         }
@@ -62,15 +65,23 @@ namespace COU.GamePlay
 
         private void Attack()
         {
-            var direction = _pathfinder.GetDirection(transform.position, _playerTransform.position);
-            _rotator.Rotate(direction);
-            _attackStrategy.Attack(transform.position, transform.forward);
-
-            if (Vector2.Distance(transform.position, _playerTransform.position) > _attackStrategy.AttackDistance)
+            if (Vector2.Distance(transform.position, _playerTransform.position) >= _attackStrategy.AttackDistance)
             {
                 _state = EnemyState.Approaching;
             }
+            
+            var direction = _pathfinder.GetDirection(transform.position, _playerTransform.position);
+            _rotator.Rotate(direction);
+            
+            if (!_canAttack)
+                return;
+            
+            _canAttack = false;
+            _attackStrategy.Attack(transform, transform.right);
+            Invoke(nameof(ApplyAttackCoolDown), _attackCoolDown);
         }
+
+        private void ApplyAttackCoolDown() => _canAttack = true;
     }
     
     public enum EnemyState

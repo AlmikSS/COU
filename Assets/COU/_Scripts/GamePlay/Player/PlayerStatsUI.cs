@@ -29,7 +29,7 @@ namespace COU.Player
         {
             var obj = _healthBar.GetChild(0);
             if (obj != null)
-                Destroy(obj);
+                Destroy(obj.gameObject);
         }
     }
 }
