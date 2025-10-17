@@ -8,15 +8,15 @@ namespace COU.Player
     {
         [SerializeField] private float _maxSpeed;
         
-        private IMoveable _mover;
-        private IRotatable _rotator;
+        private IMover _mover;
+        private IRotator _rotator;
         private Joystick _joystick;
         private PlayerScanner _playerScanner;
         private PlayerCombat _playerCombat;
         private Vector2 _moveDirection;
 
-        public void Initialize(IMoveable mover,
-            IRotatable rotator,
+        public void Initialize(IMover mover,
+            IRotator rotator,
             Joystick joystick,
             PlayerScanner playerScanner,
             PlayerCombat playerCombat)

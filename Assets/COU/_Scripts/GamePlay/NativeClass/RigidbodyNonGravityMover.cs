@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace COU.GamePlay
 {
-    public class RigidbodyNonGravityMover : IMoveable
+    public class RigidbodyNonGravityMover : IMover
     {
         private readonly Rigidbody2D _rb;
         private float _speed;
@@ -21,6 +21,11 @@ namespace COU.GamePlay
         public void Move(Vector2 direction)
         {
             _rb.AddForce(direction.normalized * _speed);
+        }
+
+        public void Stop()
+        {
+            _rb.linearVelocity = Vector2.zero;
         }
     }
 }
