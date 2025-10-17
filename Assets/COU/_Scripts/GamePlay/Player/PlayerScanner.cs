@@ -48,7 +48,9 @@ namespace COU.Player
                 if (!isScanned)
                 {
                     isScanned = true;
-                    PerformScan(origin, direction);
+                    PerformScan(origin, direction, out var result);
+                    if (result != Vector2.zero)
+                        _lineRenderer.SetPosition(1, result);
                 }
                 
                 yield return null;
@@ -62,9 +64,9 @@ namespace COU.Player
             _canScan = true;
         }
         
-        private void PerformScan(Vector2 origin, Vector2 direction)
+        private void PerformScan(Vector2 origin, Vector2 direction, out Vector2 result)
         {
-            Debug.Log("Scanning");
+            result = Vector2.zero;
             
             var hit = Physics2D.Raycast(origin, direction, _maxDistance, _scanableLayer);
 
@@ -72,7 +74,7 @@ namespace COU.Player
             
             if (!hit.transform.TryGetComponent(out Scanable scanable)) return;
             
-            Debug.Log(hit.transform.name);
+            result = hit.point;
             OnScanEvent?.Invoke(scanable);
         }
         
