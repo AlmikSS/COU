@@ -26,7 +26,7 @@ namespace COU.Player
                 _projectilePool.Despawn(obj);
             
             projectile.Initialize(_projectilePool);
-            projectile.Launch(transform.right);
+            projectile.Launch(transform.right, gameObject);
         }
     }
 }

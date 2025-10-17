@@ -16,6 +16,7 @@ namespace COU.GamePlay
         private GameObject _currentVfx;
         private Rigidbody2D _rb;
         private ObjectPool _projectilePool;
+        private GameObject _sender;
 
         private void Awake()
         {
@@ -26,10 +27,16 @@ namespace COU.GamePlay
         {
             _projectilePool = pool;
         }
+
+        public void SetDamage(int damage)
+        {
+            _damage = damage;
+        }
         
-        public void Launch(Vector2 direction)
+        public void Launch(Vector2 direction, GameObject sender)
         {
             _rb.linearVelocity = direction * _speed;
+            _sender = sender;
             
             var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -41,20 +48,26 @@ namespace COU.GamePlay
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            if (other.gameObject == _sender)
+                return;
+            
             if (other.gameObject.TryGetComponent(out IDamageable damageable))
+            { 
                 damageable.TakeDamage(_damage);
+            }
             
             ReturnToPool();
         }
 
         private void ReturnToPool()
         {
+            if (_currentVfx != null)
+                _currentVfx.transform.SetParent(null);
+            
             if (_projectilePool != null)
-            {
-                if (_currentVfx != null)
-                    _currentVfx.transform.SetParent(null);
                 _projectilePool.Despawn(gameObject);
-            }
+            else
+                Destroy(gameObject);
         }
     }
 }
