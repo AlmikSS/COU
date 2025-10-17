@@ -49,12 +49,13 @@ namespace COU.GamePlay
 
         private void ReturnToPool()
         {
+            if (_currentVfx != null)
+                _currentVfx.transform.SetParent(null);
+            
             if (_projectilePool != null)
-            {
-                if (_currentVfx != null)
-                    _currentVfx.transform.SetParent(null);
                 _projectilePool.Despawn(gameObject);
-            }
+            else
+                Destroy(gameObject);
         }
     }
 }

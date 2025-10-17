@@ -12,6 +12,6 @@ namespace COU.GamePlay
         public float FleeDistance => _fleeDistance;
         public int Damage => _damage;
 
-        public abstract void Attack(Vector2 direction);
+        public abstract void Attack(Vector2 origin, Vector2 direction);
     }
 }

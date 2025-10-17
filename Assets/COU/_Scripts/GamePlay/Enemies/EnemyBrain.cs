@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using COU.Interfaces;
 using UnityEngine;
 
@@ -7,7 +6,6 @@ namespace COU.GamePlay
 {
     public class EnemyBrain : MonoBehaviour
     {
-        [SerializeField] private float _updateInterval = 0.2f;
         [SerializeField] private float _speed;
         [SerializeField] private EnemyAttackStrategy _attackStrategy;
         
@@ -45,7 +43,7 @@ namespace COU.GamePlay
                         break;
                 }
                 
-                yield return new WaitForSeconds(_updateInterval);
+                yield return null;
             }
         }
 
@@ -66,7 +64,7 @@ namespace COU.GamePlay
         {
             var direction = _pathfinder.GetDirection(transform.position, _playerTransform.position);
             _rotator.Rotate(direction);
-            _attackStrategy.Attack(transform.forward);
+            _attackStrategy.Attack(transform.position, transform.forward);
 
             if (Vector2.Distance(transform.position, _playerTransform.position) > _attackStrategy.AttackDistance)
             {

@@ -1,41 +1,32 @@
-﻿using System.Collections.Generic;
-using COU.Interfaces;
+﻿using COU.Interfaces;
 using UnityEngine;
 
 namespace COU.GamePlay
 {
     public class PotentialFieldPathfinder : IPathfinder
     {
-        private readonly List<Transform> _planets;
-        private float _attractionStrength;
-        private float _repulsionStrength;
-        private float _safeDistance;
+        private readonly float _repulsionStrength;
+        private readonly LayerMask _obstacleLayerMask;
 
-        public PotentialFieldPathfinder(List<Transform> planets)
+        public PotentialFieldPathfinder(float repulsionStrength, LayerMask obstacleLayerMask)
         {
-            _planets = planets;
+            _repulsionStrength = repulsionStrength;
+            _obstacleLayerMask = obstacleLayerMask;
         }
-
+        
         public Vector2 GetDirection(Vector2 start, Vector2 end)
         {
-            var direction = (end - start).normalized;
-            var attractionForce = direction * _attractionStrength;
-            var repulsionForce = new Vector2();
-
-            foreach (var planet in _planets)
+            var baseDirection = (end - start).normalized;
+            
+            if (!Physics2D.Raycast(start, baseDirection, Vector2.Distance(start, end), _obstacleLayerMask))
             {
-                var directionFromPlanet = (start - (Vector2)planet.position).normalized;
-                var distance = Vector2.Distance(start, planet.position);
-
-                if (distance < _safeDistance)
-                {
-                    var strength = 1 - (distance / _safeDistance);
-                    repulsionForce += directionFromPlanet * strength;
-                }
+                return baseDirection;
             }
 
-            var totalForce = attractionForce + repulsionForce * _repulsionStrength;
-            return totalForce.normalized;
+            var perpendicular = new Vector2(-baseDirection.y, baseDirection.x);
+            var adjustedDirection = (baseDirection + perpendicular * _repulsionStrength).normalized;
+            
+            return adjustedDirection;
         }
     }
 }
