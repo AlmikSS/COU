@@ -11,6 +11,8 @@ namespace COU.Bootstrap
         
         private void Start()
         {
+            Application.targetFrameRate = 120;
+            
             _player.Initialize();
 
             foreach (var pool in _objectPools)

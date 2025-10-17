@@ -18,18 +18,17 @@ namespace COU.Optimization
             }
         }
 
-        private GameObject AddObject()
+        private void AddObject()
         {
             var obj = Instantiate(_prefab, transform);
             _objectPool.Enqueue(obj);
             obj.SetActive(false);
-            return obj;
         }
 
         public GameObject Spawn(Vector3 position, Quaternion rotation, Transform parent = null)
         {
-            if (_objectPool.Count < 0)
-                return AddObject();
+            if (_objectPool.Count <= 0) 
+                AddObject();
             
             var obj = _objectPool.Dequeue();
             obj.transform.position = position;
