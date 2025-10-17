@@ -2,7 +2,7 @@
 
 namespace COU.Interfaces
 {
-    public interface IRotatable
+    public interface IRotator
     {
         void SetSpeed(float speed);
         void Rotate(Vector2 direction);
